@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload PDF</title>
+</head>
+<body>
+    <h2>Upload a PDF</h2>
+    <input type="file" id="pdfInput" accept="application/pdf">
+    <button onclick="uploadPDF()">Upload</button>
+
+    <script>
+        async function uploadPDF() {
+            const fileInput = document.getElementById('pdfInput');
+            if (fileInput.files.length === 0) {
+                alert('Please select a PDF file.');
+                return;
+            }
+
+            const pdfFile = fileInput.files[0];
+
+            // Read the file content
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+                // Download the file content to the local machine
+                const a = document.createElement('a');
+                a.href = fileContent;
+                a.download = pdfFile.name;
+                a.click();
+            };
+            reader.readAsDataURL(pdfFile);
+        }
+    </script>
+</body>
+</html>
